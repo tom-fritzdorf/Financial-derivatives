@@ -17,7 +17,7 @@ R= 100
 def stockprice(Z, S, r, sigma, T):
     return S* np.exp((r-0.5*sigma**2)*T+sigma*np.sqrt(T)*Z)
 
-# Sampled standard deviation of simulated payoffs 
+# Estimated standard deviation of simulated payoffs 
 def standarddeviation(ST,K): 
     return np.std(np.maximum(ST-K,0))
 
@@ -26,7 +26,7 @@ def mcestimator(ST, r, T, K, n):
     return np.exp(-r*T)*(1/n)*np.sum(np.maximum(ST-K,0))
 
 
-# Estimated standard error of the Monte Carlo Estimator 
+# Standard error of the Monte Carlo Estimator 
 def standarderror(r, T, sigmahat, n):
     return np.exp(-r*T)*(1/np.sqrt(n))*sigmahat 
 
@@ -34,7 +34,7 @@ def standarderror(r, T, sigmahat, n):
 def payoff(S,K): 
         return np.maximum(S-K,0)
 
-# Standard deviation of the average antithetic payoffs
+# Standard deviation of the antithetic pair mean
 
 def standarddeviationav(Yval): 
     return np.std(Yval)
@@ -120,7 +120,7 @@ plt.legend()
 plt.grid()
 plt.show()
 
-# Root Means Square Error 
+# Root Mean Square Error 
 
 RMSE=[]
 
@@ -132,7 +132,7 @@ logRMSE= np.log(RMSE)
 logM= np.log(M)
 
 theorate= RMSE[0]*M[0]**(1/2)*np.array(M)**(-0.5)
-#theorate = RMSE[0] * (np.array(M) / M[0])**(-0.5)
+
 z =np.polyfit(logM,logRMSE,1)
 beta = -z[0]
 a= z[1]
